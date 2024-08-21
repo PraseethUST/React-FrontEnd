@@ -52,13 +52,6 @@ const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => 
             <BsFillBellFill className="icon" /> Pending
           </li>
         </NavLink>
-
-        <NavLink to="/dashboard/setting">
-          <li className={`sidebar-list-item ${activeItem === 'setting' ? 'active' : ''}`}
-            onClick={() => handleItemClick('setting')}>
-            <BsFillGearFill className="icon" /> Setting
-          </li>
-        </NavLink>
       </ul>
     </aside>
   );

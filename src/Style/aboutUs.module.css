@@ -1,0 +1,219 @@
+.about h4 {
+    width: 95%;
+    line-height: 2;
+    text-align: left;
+    padding: 0 0 0 70px;
+    margin: 15px 0px;
+    font-size: 18px;
+    color: white;
+    word-break: break-all;
+}
+
+.about h1 {
+    text-align: center;
+    color: #fff;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.slider {
+    padding: 30px 0;
+    margin-top: -40px;
+    transform: scale(0.75);
+    transition: 0.3s;
+    display: flex;
+    flex-flow: row;
+    /* Ensure horizontal layout */
+    align-items: flex-start;
+    /* Align items to the start for proper spacing */
+    justify-content: space-between;
+    overflow-x: auto;
+    /* Allow horizontal scroll */
+}
+
+.slider .people__card {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    width: 300px;
+    /* Default width for responsiveness */
+    height: auto;
+    /* Adjust height to auto for better flexibility */
+    padding: 20px;
+    border-radius: 24px;
+    background: linear-gradient(135deg,
+            hsl(25 98% 70%),
+            hsl(23.9645 96.8689% 69.7096%),
+            hsl(21.0027 93.4957% 68.9107%),
+            hsl(16.5084 88.0997% 67.7756%),
+            hsl(11.099 81.428% 66.5035%),
+            hsl(5.69633 74.8663% 65.3092%),
+            hsl(1.56759 70.0643% 64.439%),
+            hsl(0.00000265346 68.306% 64.1176%));
+    transition: 0.3s;
+    margin-bottom: 20px;
+    /* Add bottom margin for vertical spacing */
+}
+
+.slider .people__image {
+    position: relative;
+    padding: 2px;
+    width: 150px;
+    /* Adjusted for responsiveness */
+    height: 150px;
+    /* Adjusted for responsiveness */
+    margin-bottom: 15px;
+    overflow: hidden;
+    border-radius: 100%;
+    border: 4px solid rgba(255, 255, 255, 0.5);
+}
+
+.slider .people__image img {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.slider .people__social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    /* Adjusted for responsiveness */
+    margin-bottom: 15px;
+    gap: 15px;
+    /* Adjusted for responsiveness */
+}
+
+.people__social li {
+    list-style-type: none;
+}
+
+.slider .people__social a {
+    color: rgba(255, 255, 255, 0.8);
+    transition: 0.3s;
+}
+
+.slider .people__social a:hover {
+    color: #fff;
+}
+
+.slider .people__name {
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 18px;
+    /* Adjusted for responsiveness */
+}
+
+.slider .people__position {
+    margin-bottom: 10px;
+    font-weight: 300;
+    font-size: 14px;
+    /* Adjusted for responsiveness */
+    text-transform: uppercase;
+}
+
+.slider .people__desc {
+    margin-bottom: 15px;
+    font-weight: 300;
+    font-size: 14px;
+    /* Adjusted for responsiveness */
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .slider {
+        transform: scale(0.85);
+    }
+
+    .slider .people__card {
+        width: 280px;
+    }
+}
+
+@media (max-width: 992px) {
+    .slider {
+        transform: scale(0.75);
+    }
+
+    .slider .people__card {
+        width: 260px;
+    }
+
+    .slider .people__image {
+        width: 130px;
+        height: 130px;
+    }
+
+    .slider .people__name {
+        font-size: 16px;
+    }
+
+    .slider .people__position,
+    .slider .people__desc {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 768px) {
+    .slider {
+        flex-direction: column;
+        /* Switch to vertical layout on smaller screens */
+        align-items: center;
+        padding: 15px 0;
+        margin-top: -100px;
+        overflow-x: visible;
+        /* Ensure overflow is visible if wrapping */
+    }
+
+    .slider .people__card {
+        width: 60%;
+        height: auto;
+        padding: 15px;
+        margin-bottom: 20px;
+        /* Add margin-bottom to create vertical space between cards */
+    }
+
+    .slider .people__image {
+        width: 120px;
+        height: 120px;
+    }
+
+    .slider .people__name {
+        font-size: 14px;
+    }
+
+    .slider .people__position,
+    .slider .people__desc {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .slider {
+        margin-top: -100px;
+    }
+
+    .about h4 {
+        padding: 0 0 0 20px;
+        font-size: 16px;
+    }
+
+    .slider .people__card {
+        width: 60%;
+        height: auto;
+        padding: 15px;
+        margin-bottom: 20px;
+        /* Add margin-bottom to create vertical space between cards */
+    }
+}

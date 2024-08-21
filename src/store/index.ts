@@ -20,7 +20,6 @@ import dynamicMiddlewares from './dynamic-middlewares';
 import middlewares, { sagaMiddleware } from './middlewares';
 import alerts, { alertsState } from './slices/alerts';
 import app, { appState } from './slices/app';
-// import github, { githubState } from './slices/github';
 import user, { userState } from './slices/user';
 import allPost, { allPostState } from './slices/allpost';
 import approved, { approvedState } from './slices/approved';

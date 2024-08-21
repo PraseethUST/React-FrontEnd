@@ -25,47 +25,48 @@ const RecipeView = () => {
     }, [id, dispatch]);
 
     return (
-        <div className={EachRecipeStyles["recipe-view"]} style={recipeStyle} >
-            {
-                // JSON.stringify(data)
-                data.map((recipe) => {
-                    return (
-                        <>
-                            <div className={EachRecipeStyles["recipe-title-wrapper"]}>
-                                <div className={EachRecipeStyles["recipe-title"]}>{recipe.recipeName}</div>
-                                { isAuthenticated && (recipe.userId === userId) && <button className={EachRecipeStyles['editButton']} onClick={handleEditClick} >Edit</button>}
+        <div className={EachRecipeStyles["recipe-view"]} style={recipeStyle}>
+            {data && Array.isArray(data) && data.length > 0 ? (
+                data.map((recipe, index) => (
+                    <div key={index}>
+                        <div className={EachRecipeStyles["recipe-title-wrapper"]}>
+                            <div className={EachRecipeStyles["recipe-title"]}>{recipe.recipeName}</div>
+                            {isAuthenticated && (recipe.userId === userId) && (
+                                <button className={EachRecipeStyles['editButton']} onClick={handleEditClick}>
+                                    Edit
+                                </button>
+                            )}
+                        </div>
+                        <div className={EachRecipeStyles["recipe-section-col"]}>
+                            <div className={EachRecipeStyles["recipe-section-title"]}>Ingredients</div>
+                            <hr />
+                            <ul className={EachRecipeStyles["recipe-ingredient-list"]}>
+                                <IngredientView ingredients={recipe.recipeIngrendients} />
+                            </ul>
+                        </div>
+                        <div className={EachRecipeStyles["recipe-section-col"]}>
+                            <div className={EachRecipeStyles["text-center"]}>
+                                {recipe.recipeImgName && (
+                                    <img alt="" className={EachRecipeStyles["recipe-photo"]} src={`http://localhost:5000/images/${recipe.recipeImgName}`} />
+                                )}
                             </div>
-                            <div className={EachRecipeStyles["recipe-section-col"]}>
-                                <div className={EachRecipeStyles["recipe-section-title"]}>Ingredients</div>
-                                <hr />
-                                <ul className={EachRecipeStyles["recipe-ingredient-list"]}>
-                                    <IngredientView ingredients={recipe.recipeIngrendients} />
-                                </ul>
-                            </div>
-                            <div className={EachRecipeStyles["recipe-section-col"]}>
-                                <div className={EachRecipeStyles["text-center"]}>
-                                    {recipe.recipeImgName && (
-                                        <img alt="" className={EachRecipeStyles["recipe-photo"]} src={`http://localhost:5000/images/${recipe.recipeImgName}`} />
-                                    )}
-                                </div>
-                            </div>
-                            {
-                                <div>
-                                    <div className={EachRecipeStyles["recipe-section-title"]}>Directions</div>
-                                    <hr />
-                                    <ol className={EachRecipeStyles["recipe-directions-list"]}>
-                                        {recipe.recipeProcess?.split('\n').map((item, i) => (
-                                            <li key={i} className={EachRecipeStyles["recipe-directions-list-item"]}>
-                                                {item}
-                                            </li>
-                                        ))}
-                                    </ol>
-                                </div>
-                            }
-                        </>
-                    )
-                })
-            }
+                        </div>
+                        <div>
+                            <div className={EachRecipeStyles["recipe-section-title"]}>Directions</div>
+                            <hr />
+                            <ol className={EachRecipeStyles["recipe-directions-list"]}>
+                                {recipe.recipeProcess?.split('\n').map((item, i) => (
+                                    <li key={i} className={EachRecipeStyles["recipe-directions-list-item"]}>
+                                        {item}
+                                    </li>
+                                ))}
+                            </ol>
+                        </div>
+                    </div>
+                ))
+            ) : (
+                <p>No recipe data found.</p>
+            )}
         </div>
     );
 };

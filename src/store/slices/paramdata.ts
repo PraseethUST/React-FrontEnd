@@ -32,7 +32,7 @@ export const paramDataSlice = createSlice({
         },
         updateParamPostSuccess: (state, action) => {
             state.loading = STATUS.READY;
-            state.data =  action.payload;
+            state.data =  Array.isArray(action.payload) ? action.payload : [action.payload];
         },
         updateParamPostFailure: (state, action) => {
             state.error = action.payload;

@@ -25,9 +25,9 @@ import DashboardHome from './components/DashboardComponents/Home'
 import LandingPage from './routes/LandingPage';
 import DetailRecipe from './routes/DetailRecipe';
 import RecipeForm from './routes/RecipeForm';
-import Private from './routes/Private';
 import MyPost from './routes/MyPost';
 import PendigPost from './routes/PendigPost';
+import AboutUs from './routes/AboutUs';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -73,10 +73,6 @@ function Root() {
                 path="/"
               />
 
-              <Route
-                element={<Private />}
-                path='/private'
-              />
 
               <Route
                 element={
@@ -123,17 +119,21 @@ function Root() {
               />
 
               <Route element={
-                  <PrivateRoute isAuthenticated={isAuthenticated}>
-                    <Dashboard isAdmin={role} />
-                  </PrivateRoute>
-                } 
+                <PrivateRoute isAuthenticated={isAuthenticated}>
+                  <Dashboard isAdmin={role} />
+                </PrivateRoute>
+              }
                 path="/dashboard"
               >
                 <Route element={<DashboardHome />} path="/dashboard" />
                 <Route element={<Post />} path="post" />
-                <Route element={<PendigPost /> } path='/dashboard/pending' />
+                <Route element={<PendigPost />} path='/dashboard/pending' />
               </Route>
 
+              <Route
+                element={<AboutUs />}
+                path='//about'
+              />
 
               <Route element={<NotFound />} path="*" />
             </Routes>

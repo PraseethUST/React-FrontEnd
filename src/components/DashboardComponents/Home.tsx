@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { selectAllPost, selectApprovedPost } from '~/selectors';
 import { fetchApprovedPost, getAllPost } from '~/actions';
 import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 function Home() {
     const allPost = useSelector(selectAllPost);
@@ -77,6 +78,7 @@ function Home() {
             </div>
 
             <div className='main-cards'>
+                <NavLink className={'card-link'} to={'/dashboard/post'}>
                 <div className='card'>
                     <div className='card-inner'>
                         <h3>PRODUCTS</h3>
@@ -84,6 +86,7 @@ function Home() {
                     </div>
                     <h1>{allPost.data.length}</h1>
                 </div>
+                </NavLink>
 
                 <div className='card'>
                     <div className='card-inner'>

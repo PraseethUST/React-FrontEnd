@@ -44,7 +44,6 @@ const Post = () => {
     };
 
     const avatarFormatter = ({ value }: any) => {
-
         return <img src={`http://localhost:5000/images/` + value} width="50px" height="50px" />;
     };
 

@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
-import { Container, Icon, Input, responsive, Text } from '@gilbarbara/components';
+import { Container, Icon, responsive } from '@gilbarbara/components';
 
 import { appColor, headerHeight } from '~/modules/theme';
 
@@ -9,8 +9,6 @@ import { NavLink as RouterNavLink, useNavigate } from 'react-router-dom';
 import Logo from '~/components/Logo';
 import { useAppSelector } from '~/modules/hooks';
 import { selectUser } from '~/selectors';
-// import Input from '@mui/material/Input/Input';
-// import { useNavigate } from 'react-router-dom';
 
 import { Button, Modal } from 'react-bootstrap';
 import { useState } from 'react';
@@ -33,55 +31,6 @@ const HeaderWrapper = styled.header`
     left: 0;
     position: absolute;
     right: 0;
-  }
-`;
-
-const SearchContainer = styled.div`
-  display: flex;
-  align-items: center;
-  background-color: transparent;
-  border-radius: 4px;
-  padding: 2px 8px;
-  margin-left: 16px;
-  width: 240px; /* Adjust width as needed */
-  svg {
-    color: #fff;
-    cursor: pointer;
-  }
-     input {
-    outline: none;
-    background-color: transparent;
-    color: #fff;
-    &:focus {
-    border: 1px solid #fff;
-      outline: none;
-      box-shadow: none;
-    }
-  }
-   
-`;
-
-const Logout = styled.button`
-  align-items: center;
-  color: #fff;
-  display: flex;
-  font-size: 14px;
-  ${responsive({ lg: { fontSize: '16px' } })};
-  span {
-    display: inline-block;
-    text-transform: uppercase;
-  }
-`;
-
-const Login = styled.button`
-  align-items: center;
-  color: #fff;
-  display: flex;
-  font-size: 14px;
-  ${responsive({ lg: { fontSize: '16px' } })};
-  span {
-    display: inline-block;
-    text-transform: uppercase;
   }
 `;
 
@@ -213,11 +162,6 @@ export default function Header() {
 
         </NavLinkContainer>
 
-        <SearchContainer>
-          <Input type="search" placeholder="Search..." name={''} />
-          <Icon ml="xs" name="search" />
-        </SearchContainer>
-
         {/* changes */}
         <DropdownWrapper>
           <button onClick={toggleDropdown} style={{ color: '#fff', background: 'none', border: 'none', cursor: 'pointer' }}>
@@ -234,10 +178,6 @@ export default function Header() {
                 <DropdownItem onClick={handleClickLogout}>
                   Logout
                   <Icon ml="xs" name="sign-out" />
-                </DropdownItem>
-                <DropdownItem onClick={() => navigate('/change-password')}>
-                  Change Password
-                  <Icon ml="xs" name="key" />
                 </DropdownItem>
               </>
             )}

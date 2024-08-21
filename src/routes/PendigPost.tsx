@@ -11,7 +11,6 @@ import { AgGridReact } from 'ag-grid-react';
 import style from "../Style/Post.module.css";
 import { ICellRendererParams } from "ag-grid-community";
 
-
 const PendigPost = () => {
   const { data } = useSelector(selectPendingPost);
   const dispatch = useDispatch();

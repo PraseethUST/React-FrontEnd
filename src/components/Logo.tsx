@@ -1,6 +1,7 @@
 import SVG from 'react-inlinesvg';
 import styled from '@emotion/styled';
 import LogoImg from '../Assets/IconLogo.svg'
+import { NavLink } from 'react-router-dom';
 
 export const Wrapper = styled.div`
   align-items: flex-start;
@@ -16,9 +17,11 @@ export const Wrapper = styled.div`
 
 function Logo() {
   return (
-    <Wrapper>
-      <SVG src={LogoImg} />
-    </Wrapper>
+    <NavLink to={'/'}>
+      <Wrapper>
+        <SVG src={LogoImg} />
+      </Wrapper>
+    </NavLink>
   );
 }
 

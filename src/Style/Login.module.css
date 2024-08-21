@@ -10,6 +10,7 @@
 }
 
 .LoginSection {
+    margin-top: 35px;
     position: relative;
     min-height: 100vh;
     background-color: rgba(40, 37, 37, 0.753);
@@ -124,6 +125,13 @@
     font-weight: 600;
     text-decoration: none;
     color: #677eff;
+}
+
+.forgotPassword {
+    font-weight: 600;
+    text-decoration: none;
+    color: #677eff;
+    cursor: pointer;
 }
 
 /* .Boxcontainer .signupBx {

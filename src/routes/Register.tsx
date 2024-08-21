@@ -12,13 +12,17 @@ const Register = () => {
     password: '',
     phoneNo: '',
     dob: '',
+    securityQuestion: '',
+    securityAnswer: '',
   });
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
+
   const navigate = useNavigate();
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent default form submission
 
@@ -31,19 +35,18 @@ const Register = () => {
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
-        setAlert({ show: true, message: response.msg });
-        throw new Error('Network response was not ok');
-      }
-      else {
-        setAlert({ show: true, message: response.msg });
+      const result = await response.json();
+
+      if (response.ok) {
+        setAlert({ show: true, message: 'Registration successful' });
         console.log('Registration successful');
         navigate("/Login");
+      } else {
+        setAlert({ show: true, message: result.msg });
       }
-      // Handle success (e.g., show success message, redirect)
     } catch (error) {
       console.error('Error submitting form:', error);
-      // Handle error (e.g., show error message)
+      setAlert({ show: true, message: 'An error occurred. Please try again later.' });
     }
   };
 
@@ -51,8 +54,8 @@ const Register = () => {
     <section className={style['LoginSection']}>
       {alert.show && (
         <div className={style['alert-msg']}>
-          <Alert variant="danger" onClose={() => setAlert({ show: false, message: '' })} dismissible>
-            <Alert.Heading>Error!</Alert.Heading>
+          <Alert variant={alert.message === 'Registration successful' ? 'success' : 'danger'} onClose={() => setAlert({ show: false, message: '' })} dismissible>
+            <Alert.Heading>{alert.message === 'Registration successful' ? 'Success!' : 'Error!'}</Alert.Heading>
             <p>{alert.message}</p>
           </Alert>
         </div>
@@ -67,6 +70,16 @@ const Register = () => {
               <input type="password" name="password" placeholder="Create Password" value={formData.password} onChange={handleChange} required />
               <input type="tel" name="phoneNo" placeholder="Phone Number" value={formData.phoneNo} onChange={handleChange} required />
               <input type="date" name="dob" placeholder="Date of Birth" value={formData.dob} onChange={handleChange} required />
+
+              {/* Security Questions */}
+              <select name="securityQuestion" value={formData.securityQuestion} onChange={handleChange} required>
+                <option value="">Select Security Question</option>
+                <option value="q1">What is your mother's maiden name?</option>
+                <option value="q2">What is your first pet's name?</option>
+                <option value="q3">What was the name of your first school?</option>
+              </select>
+              <input type="text" name="securityAnswer" placeholder="Security Answer" value={formData.securityAnswer} onChange={handleChange} required />
+
               <input type="submit" value="Sign Up" />
               <p className={style["signup"]}>
                 Already have an account? <Link to="/Login">Sign in.</Link>
