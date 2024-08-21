@@ -15,6 +15,7 @@ import { selectUser } from '~/selectors';
 import { Button, Modal } from 'react-bootstrap';
 import { useState } from 'react';
 import AddRecipes from './DashboardComponents/AddRecipes';
+import { BsPersonCircle } from 'react-icons/bs';
 
 const HeaderWrapper = styled.header`
   background-color: #113740;
@@ -84,8 +85,6 @@ const Login = styled.button`
   }
 `;
 
-
-
 const NavLinkContainer = styled.nav`
   display: flex;
   align-items: center;
@@ -120,10 +119,39 @@ const AddRecipeLink = styled.button`
   }
 `;
 
+const DropdownWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+const DropdownContent = styled.div`
+  display: ${props => (props.show ? 'block' : 'none')};
+  position: absolute;
+  background-color: #333;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  top: 100%;
+  right: 0;
+`;
+
+const DropdownItem = styled.div`
+  color: #fff;
+  padding: 12px 16px;
+  text-align: left;
+  cursor: pointer;
+  &:hover {
+    background-color: #575757;
+  }
+`;
+
 export default function Header() {
   const dispatch = useDispatch();
   const { isAuthenticated, role, userId } = useAppSelector(selectUser);
   const navigate = useNavigate();
+
+  const [show, setShow] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const handleClickLogout = () => {
     dispatch(logOut());
@@ -133,10 +161,18 @@ export default function Header() {
     navigate('/Login');
   }
 
-  const [show, setShow] = useState<boolean>(false); // Explicitly annotate show as boolean
+  const icon = {
+    verticalAlign: 'middle',
+    lineHeight: '1px',
+    fontSize: '40px',
+    color: '#9e9ea4',
+};
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const toggleDropdown = () => setShowDropdown(!showDropdown);
+
   return (
     <HeaderWrapper data-component-name="Header">
       <Container direction="row" justify="space-between" padding="md">
@@ -168,12 +204,12 @@ export default function Header() {
               </Modal>
             </>
           )}
+          
+          {isAuthenticated && role === 2 && (<NavLinkItem to={`/my-post/${userId}`}>My Post</NavLinkItem>)}
 
           <NavLinkItem to="/about">
             About
           </NavLinkItem>
-
-          {isAuthenticated && role === 2 && (<NavLinkItem to={`/my-post/${userId}`}>My Post</NavLinkItem>)}
 
         </NavLinkContainer>
 
@@ -183,18 +219,30 @@ export default function Header() {
         </SearchContainer>
 
         {/* changes */}
-        {
-          !isAuthenticated ?
-            <Login data-component-name="Login" onClick={handleClickLogin}>
-              <Text>login</Text>
-              <Icon ml="xs" name="sign-in" />
-            </Login>
-            :
-            <Logout data-component-name="Logout" onClick={handleClickLogout}>
-              <Text>logout</Text>
-              <Icon ml="xs" name="sign-out" />
-            </Logout>
-        }
+        <DropdownWrapper>
+          <button onClick={toggleDropdown} style={{ color: '#fff', background: 'none', border: 'none', cursor: 'pointer' }}>
+            <BsPersonCircle style={{...icon}} />
+          </button>
+          <DropdownContent show={showDropdown}>
+            {!isAuthenticated ? (
+              <DropdownItem onClick={handleClickLogin}>
+                Login
+                <Icon ml="xs" name="sign-in" />
+              </DropdownItem>
+            ) : (
+              <>
+                <DropdownItem onClick={handleClickLogout}>
+                  Logout
+                  <Icon ml="xs" name="sign-out" />
+                </DropdownItem>
+                <DropdownItem onClick={() => navigate('/change-password')}>
+                  Change Password
+                  <Icon ml="xs" name="key" />
+                </DropdownItem>
+              </>
+            )}
+          </DropdownContent>
+        </DropdownWrapper>
       </Container>
     </HeaderWrapper>
   );

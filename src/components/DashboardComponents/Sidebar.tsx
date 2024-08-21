@@ -4,10 +4,8 @@ import {
   BsGrid1X2Fill,
   BsFillArchiveFill,
   BsFillGrid3X3GapFill,
-  BsPeopleFill,
-  BsListCheck,
-  BsMenuButtonWideFill,
   BsFillGearFill,
+  BsFillBellFill,
 } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
 
@@ -48,10 +46,10 @@ const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => 
           </li>
 
         </NavLink>
-        <NavLink to="/dashboard/categories">
-          <li className={`sidebar-list-item ${activeItem === 'categories' ? 'active' : ''}`}
-            onClick={() => handleItemClick('categories')}>
-            <BsFillGrid3X3GapFill className="icon" /> Categories
+        <NavLink to="/dashboard/pending">
+          <li className={`sidebar-list-item ${activeItem === 'pending' ? 'active' : ''}`}
+            onClick={() => handleItemClick('pending')}>
+            <BsFillBellFill className="icon" /> Pending
           </li>
         </NavLink>
 
@@ -67,24 +65,3 @@ const Sidebar: React.FC<SidebarProps> = ({ openSidebarToggle, OpenSidebar }) => 
 };
 
 export default Sidebar;
-{
-  /* <li className='sidebar-list-item'>
-          <a href="">
-            <BsPeopleFill className='icon' /> Customers
-          </a>
-        </li> */
-}
-{
-  /* <li className='sidebar-list-item'>
-          <a href="">
-            <BsListCheck className='icon' /> Inventory
-          </a>
-        </li> */
-}
-{
-  /* <li className='sidebar-list-item'>
-          <a href="">
-            <BsMenuButtonWideFill className='icon' /> Reports
-          </a>
-        </li> */
-}

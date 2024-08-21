@@ -25,6 +25,7 @@ import user, { userState } from './slices/user';
 import allPost, { allPostState } from './slices/allpost';
 import approved, { approvedState } from './slices/approved';
 import paramdata, { paramDataState } from './slices/paramdata';
+import pending, { pendingState } from './slices/pendingpost';
 
 const getDefaultMiddlewareOptions = {
   serializableCheck: {
@@ -39,6 +40,7 @@ export const initialState = {
   allPost: allPostState,
   approved: approvedState,
   paramdata: paramDataState,
+  pendingdata: pendingState,
   user: userState,
 };
 
@@ -48,6 +50,7 @@ export const reducers = {
   allPost,
   approved,
   paramdata,
+  pending,
   user,
 };
 

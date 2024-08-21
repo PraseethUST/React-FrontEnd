@@ -6,7 +6,7 @@ import { selectApprovedPost } from '~/selectors';
 
 const DetailRecipe = () => {
   const { data } = useSelector(selectApprovedPost);
-
+  
   return (
     <>
       <Header />

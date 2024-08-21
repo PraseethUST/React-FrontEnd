@@ -1,38 +1,39 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import styles from '~/Style/RecipeForm.module.css';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { selectParamDataPost } from '~/selectors';
+import { fetchParamData, updateParamPost } from '~/actions';
 
 const RecipeForm = () => {
-    const [recipe, setRecipe] = useState({});
-    const { id } = useParams();
+    const [ fromData, setFormData ] = useState({});
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { id } = useParams();
+    const { data: z } = useSelector(selectParamDataPost);
+    const recipe = z[0];
 
     useEffect(() => {
-        const getApiData = async () => {
-            try {
-                const { data: { data } } = await axios.get(`http://localhost:5000/api/posts/getUserPost/${id}`);
-                setRecipe(data[0]);               
-            } catch (error) {
-                console.error('Error fetching recipe:', error);
-            }
-        };
-        getApiData();
-    }, [id]);
+        if (id) {
+            dispatch(fetchParamData(id));
+            setFormData(recipe);
+        }
+    }, [id, dispatch]);
 
-    const handleInputChange = (e: any) => {
-        const { name, value } = e.target;
-        setRecipe({ ...recipe, [name]: value });
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        if (recipe) {
+            const { name, value } = e.target;
+            setFormData({...fromData, [name]: value});
+        }
     };
 
-    const handleFormSubmit = async (e: any) => {
+    const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try {
-            await axios.patch(`http://localhost:5000/api/posts/update/${id}`, recipe);
+        if (recipe) {
+            dispatch(updateParamPost(fromData));
             alert('Recipe updated successfully!');
-            navigate(`/${id}`);
-        } catch (error) {
-            console.error('Error updating recipe:', error);
+            navigate(`/`);
         }
     };
 
@@ -44,7 +45,7 @@ const RecipeForm = () => {
                         type="text"
                         name="recipeName"
                         className={styles.input}
-                        value={recipe.recipeName}
+                        value={fromData.recipeName}
                         onChange={handleInputChange}
                     />
                 </div>
@@ -53,7 +54,7 @@ const RecipeForm = () => {
                     <textarea
                         name="recipeIngrendients"
                         className={styles.textarea}
-                        value={recipe.recipeIngrendients}
+                        value={fromData.recipeIngrendients}
                         onChange={handleInputChange}
                     />
                 </div>
@@ -62,7 +63,7 @@ const RecipeForm = () => {
                     <textarea
                         name="recipeProcess"
                         className={styles.textarea}
-                        value={recipe.recipeProcess}
+                        value={fromData?.recipeProcess}
                         onChange={handleInputChange}
                     />
                 </div>

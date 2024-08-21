@@ -7,10 +7,11 @@ interface Prop {
     title: string,
     src: string,
     desc: string,
-    process: string
+    process: string,
+    status?: string
 };
 
-const Items = ({ id, title, src, desc, process }: Prop) => {
+const Items = ({ id, title, src, desc, process, status }: Prop) => {
 
     return (
         <Col sm={6} md={4} lg={3} className="mb-4">
@@ -38,8 +39,9 @@ const Items = ({ id, title, src, desc, process }: Prop) => {
                                     })
                                 }
                             </ol>
+                            <h2> { status } </h2>
                         </Card.Text>
-                        <Link to={`/${id}`}><Button variant="primary">Go somewhere</Button></Link>
+                        <Link to={`/post/${id}`}><Button variant="primary">Go somewhere</Button></Link>
                     </Card.Body>
                 </Card>
             </Link>

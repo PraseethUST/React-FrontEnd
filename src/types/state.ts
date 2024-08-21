@@ -30,9 +30,9 @@ export interface AppState {
   query: string;
 }
 
-export interface GitHubState {
-  topics: Record<string, Topic>;
-}
+// export interface GitHubState {
+//   topics: Record<string, Topic>;
+// }
 
 export interface UserState {
   isAuthenticated: boolean;
@@ -47,6 +47,7 @@ export interface RootState {
   allPost: Post;
   approved: Post;
   paramdata: Post;
+  pending: Post,
   user: UserState;
 }
 

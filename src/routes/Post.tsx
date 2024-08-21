@@ -1,64 +1,35 @@
-import { useState, useEffect } from 'react';
 import { ICellRendererParams } from 'ag-grid-community';
-import axios from 'axios';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import style from "../Style/Post.module.css";
 import { AgGridReact } from 'ag-grid-react';
-import { token } from './Login';
 
-interface PostData {
-    id: number;
-    recipeImgName: string;
-    recipeName: string;
-    recipeStatus: string;
-}
+import { deletePost, updatePostStatus } from '~/actions';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { selectAllPost } from '~/selectors';
+
+import style from "../Style/Post.module.css";
 
 const Post = () => {
-    const [rowData, setRowData] = useState<PostData[]>([]);
+    const dispatch = useDispatch();
+    const { data: rowData } = useSelector(selectAllPost);
 
-    useEffect(() => {
-        const fetchApiData = async () => {
-            try {
-                const { data: { data } } = await axios.get('http://localhost:5000/api/posts/getPost');
-                setRowData(data);
-            } catch (error) {
-                console.error('Fetch error:', error);
-            }
-        };
-
-        fetchApiData();
-    }, []);
-
-    const handleApprove = async (params: ICellRendererParams) => {
-        try {
-            const { data } = params;
-            const confirmDelete = confirm("Are you sure you want to Approve??");
-            if (confirmDelete) {
-                await axios.patch(`http://localhost:5000/api/posts/updateStatus/${data.id}`, {}, {
-                    headers: {
-                        Authorization: token
-                    }
-                });
-                setRowData(prevRowData => prevRowData.map(row => row.id === data.id ? { ...row, recipeStatus: 'Approved' } : row));
-                alert("Approved Successfully");
-            }
-        } catch (error) {
-            console.error('Update error:', error);
+    const handleApprove = (params: ICellRendererParams) => {
+        const { id, recipeStatus } = params.data;
+        const confirmApprove = confirm("Are You Sure You Want to Approve?");
+        if (confirmApprove) {
+            const newStatus = recipeStatus === 'Pending' ? 'Approved' : 'Pending';
+            dispatch(updatePostStatus({ id, status: newStatus }));
+            alert("Post Approved👍👍😊😊")
         }
     };
 
-    const handleDeleteClick = async (params: ICellRendererParams) => {
-        try {
-            const { data } = params;
-            const confirmDelete = confirm("Are you sure you want to delete??");
-            if (confirmDelete) {
-                await axios.delete(`http://localhost:5000/api/posts/deletePost/${data.id}`);
-                setRowData(prevRowData => prevRowData.filter(row => row.id !== data.id));
-                alert("The post has been deleted Successfuly");
-            }
-        } catch (error) {
-            console.error('Delete error:', error);
+    const handleDeleteClick = (params: ICellRendererParams) => {
+        const { id } = params.data;
+        const confirmDelete = window.confirm("Are you sure you want to delete?");
+        if (confirmDelete) {
+            dispatch(deletePost(id));
+            alert("Post Deleted👍👍");
         }
     };
 

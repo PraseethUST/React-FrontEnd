@@ -1,15 +1,26 @@
-// import React from 'react'
-import { useState } from 'react';
-import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill }
+import { useEffect, useState } from 'react';
+import { BsFillArchiveFill, BsPeopleFill, BsFillBellFill, BsFillGrid3X3GapFill }
     from 'react-icons/bs'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line }
     from 'recharts';
 import AddRecipes from './AddRecipes';
 import { Button, Modal } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { selectAllPost, selectApprovedPost } from '~/selectors';
+import { fetchApprovedPost, getAllPost } from '~/actions';
+import { useDispatch } from 'react-redux';
 
 function Home() {
+    const allPost = useSelector(selectAllPost);
+    const approvedPost = useSelector(selectApprovedPost);
+    const dispatch = useDispatch();
 
-    const data = [
+    useEffect(() => {
+        dispatch(getAllPost());
+        dispatch(fetchApprovedPost());
+    }, [dispatch]);
+
+    const fdata = [
         {
             name: 'Page A',
             uv: 4000,
@@ -71,15 +82,25 @@ function Home() {
                         <h3>PRODUCTS</h3>
                         <BsFillArchiveFill className='card_icon' />
                     </div>
-                    <h1>{300}</h1>
+                    <h1>{allPost.data.length}</h1>
                 </div>
+
                 <div className='card'>
                     <div className='card-inner'>
-                        <h3>CATEGORIES</h3>
+                        <h3>Approved</h3>
                         <BsFillGrid3X3GapFill className='card_icon' />
                     </div>
-                    <h1>12</h1>
+                    <h1> { approvedPost.data.length } </h1>
                 </div>
+
+                <div className='card'>
+                    <div className='card-inner'>
+                        <h3>Pending</h3>
+                        <BsFillBellFill className='card_icon' />
+                    </div>
+                    <h1> {allPost.data.length - approvedPost.data.length} </h1>
+                </div>
+
                 <div className='card'>
                     <div className='card-inner'>
                         <h3 onClick={handleShow}>
@@ -101,14 +122,7 @@ function Home() {
 
                         <BsPeopleFill className='card_icon' />
                     </div>
-                    <h1>33</h1>
-                </div>
-                <div className='card'>
-                    <div className='card-inner'>
-                        <h3>ALERTS</h3>
-                        <BsFillBellFill className='card_icon' />
-                    </div>
-                    <h1>42</h1>
+                    <h1>+</h1>
                 </div>
             </div>
 
@@ -117,7 +131,7 @@ function Home() {
                     <BarChart
                         width={500}
                         height={300}
-                        data={data}
+                        data={fdata}
                         margin={{
                             top: 5,
                             right: 30,
@@ -139,7 +153,7 @@ function Home() {
                     <LineChart
                         width={500}
                         height={300}
-                        data={data}
+                        data={fdata}
                         margin={{
                             top: 5,
                             right: 30,

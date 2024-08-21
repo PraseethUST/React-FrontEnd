@@ -22,11 +22,12 @@ const RecipeView = () => {
 
     useEffect(() => {
         dispatch(fetchParamData(id));
-    }, [dispatch]);
+    }, [id, dispatch]);
 
     return (
         <div className={EachRecipeStyles["recipe-view"]} style={recipeStyle} >
             {
+                // JSON.stringify(data)
                 data.map((recipe) => {
                     return (
                         <>

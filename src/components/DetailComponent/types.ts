@@ -4,6 +4,7 @@ export interface IngredientGroup {
 }
 
 export interface Recipe {
+  id: any;
   name: string;
   photoUrl: string;
   ingredients: (string | IngredientGroup)[];

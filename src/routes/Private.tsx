@@ -49,7 +49,7 @@ function Private() {
           <i>*Just to have some requests in the sagas...</i>
         </Text>
       </Box>
-      <Github />
+      {/* <Github /> */}
     </Page>
   );
 }

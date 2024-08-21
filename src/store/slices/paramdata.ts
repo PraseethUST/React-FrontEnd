@@ -14,20 +14,32 @@ export const paramDataSlice = createSlice({
     initialState: paramDataState,
     reducers: {
         fetchParamData: (state, { payload }) => {
-            state.loading = STATUS.RUNNING;            
+            state.loading = STATUS.RUNNING;
             state.id = payload;
+            state.data = [];
         },
         fetchParamDataSuccess: (state, { payload: { data } }) => {
-            state.loading = STATUS.READY;            
+            state.loading = STATUS.READY;
             state.data = data;
         },
         fetchParamDataFailure: state => {
             state.error = STATUS.ERROR;
             state.data = [];
             state.loading = STATUS.IDLE;
-        }
+        },
+        updateParamPost: (state) => {
+            state.loading = STATUS.RUNNING;
+        },
+        updateParamPostSuccess: (state, action) => {
+            state.loading = STATUS.READY;
+            state.data =  action.payload;
+        },
+        updateParamPostFailure: (state, action) => {
+            state.error = action.payload;
+            state.loading = STATUS.IDLE;
+        },
     }
 });
 
-export const { fetchParamData, fetchParamDataSuccess, fetchParamDataFailure } = paramDataSlice.actions;
+export const { fetchParamData, fetchParamDataSuccess, fetchParamDataFailure, updateParamPost, updateParamPostSuccess, updateParamPostFailure } = paramDataSlice.actions;
 export default paramDataSlice.reducer;
