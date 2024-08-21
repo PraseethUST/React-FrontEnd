@@ -3,8 +3,6 @@ import {
   BsCart3,
   BsGrid1X2Fill,
   BsFillArchiveFill,
-  BsFillGrid3X3GapFill,
-  BsFillGearFill,
   BsFillBellFill,
 } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';

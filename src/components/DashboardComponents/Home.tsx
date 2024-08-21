@@ -79,13 +79,13 @@ function Home() {
 
             <div className='main-cards'>
                 <NavLink className={'card-link'} to={'/dashboard/post'}>
-                <div className='card'>
-                    <div className='card-inner'>
-                        <h3>PRODUCTS</h3>
-                        <BsFillArchiveFill className='card_icon' />
+                    <div className='card'>
+                        <div className='card-inner'>
+                            <h3>PRODUCTS</h3>
+                            <BsFillArchiveFill className='card_icon' />
+                        </div>
+                        <h1>{allPost.data.length}</h1>
                     </div>
-                    <h1>{allPost.data.length}</h1>
-                </div>
                 </NavLink>
 
                 <div className='card'>
@@ -93,16 +93,18 @@ function Home() {
                         <h3>Approved</h3>
                         <BsFillGrid3X3GapFill className='card_icon' />
                     </div>
-                    <h1> { approvedPost.data.length } </h1>
+                    <h1> {approvedPost.data.length} </h1>
                 </div>
 
-                <div className='card'>
-                    <div className='card-inner'>
-                        <h3>Pending</h3>
-                        <BsFillBellFill className='card_icon' />
+                <NavLink to={`/dashboard/pending`} className={'card-link'} >
+                    <div className='card'>
+                        <div className='card-inner'>
+                            <h3>Pending</h3>
+                            <BsFillBellFill className='card_icon' />
+                        </div>
+                        <h1> {allPost.data.length - approvedPost.data.length} </h1>
                     </div>
-                    <h1> {allPost.data.length - approvedPost.data.length} </h1>
-                </div>
+                </NavLink>
 
                 <div className='card'>
                     <div className='card-inner'>

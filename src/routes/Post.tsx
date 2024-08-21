@@ -3,16 +3,21 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { AgGridReact } from 'ag-grid-react';
 
-import { deletePost, updatePostStatus } from '~/actions';
+import { deletePost, getAllPost, updatePostStatus } from '~/actions';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { selectAllPost } from '~/selectors';
 
 import style from "../Style/Post.module.css";
+import { useEffect } from 'react';
 
 const Post = () => {
     const dispatch = useDispatch();
     const { data: rowData } = useSelector(selectAllPost);
+
+    useEffect(() => {
+        dispatch(getAllPost());
+    }, [dispatch]);
 
     const handleApprove = (params: ICellRendererParams) => {
         const { id, recipeStatus } = params.data;
